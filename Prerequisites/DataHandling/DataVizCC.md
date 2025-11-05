@@ -58,14 +58,14 @@ plt.imshow(mat, cmap='coolwarm')
 plt.show()
 ```
 
-![[Figure_2 1.png]]
+![Figure 2](imgs/Figure_2.png)
 
 ```python
 mat = np.randint(0,1000,(10,10))
 plt.imshow(mat)
 ```
 
-![[Figure_3 1.png]]
+![Figure 3](imgs/Figure_3.png)
 
 ## Pandas Visualization
 
@@ -85,5 +85,5 @@ df.plot(x='Salary', y='Age', kind='scatter')
 plt.show()
 ```
 
-![[Figure_4 2.png]]
+![Figure 4](imgs/Figure_4.png)
 
