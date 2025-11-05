@@ -31,7 +31,7 @@ plt.ylabel('Y Label here')
 plt.show()plt.show()
 ```
 
-![[Figure_1 1.png]]
+![Figure 1](imgs/Figure_1%201.png)
 
 
 ## Imshow plot
