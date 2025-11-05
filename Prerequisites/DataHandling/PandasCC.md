@@ -1,4 +1,4 @@
-[[Pandas-Numpy]]
+# Pandas
 
 ## Standard Import Syntax
 

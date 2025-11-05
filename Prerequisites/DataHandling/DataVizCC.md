@@ -1,3 +1,5 @@
+# Dataviz with Matplotlib
+
 ## Standard Import Syntax
 ```python
 import numpy as np
