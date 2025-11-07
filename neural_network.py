@@ -225,12 +225,12 @@ plt.show()
 
 
 class Sigmoid(Operation):
-    def __init__self(self, z):
+    def __init__(self, z):
 
         super().__init__([z])
 
     def compute(self, z_val):
-        return 1 / (1 + np.exp(-z))
+        return 1 / (1 + np.exp(-z_val))
 
 
 data = make_blobs(n_samples=50, n_features=2, centers=2, random_state=75)
@@ -248,5 +248,32 @@ plt.show()
 x = np.linspace(0, 11, 10)
 y = -x + 5
 plt.scatter(features[:, 0], features[:, 1], c=labels, cmap='coolwarm')
-plt.plot(x, y)git stat
+plt.plot(x, y)
 plt.show()
+
+
+# (1,1) * f - 5 = 0
+np.array([1, 1]).dot(np.array([[8], [10]])) - 5
+
+np.array([1, 1]).dot(np.array([[2], [-10]])) - 5
+
+g = Graph()
+
+g.set_as_default()
+
+x = Placeholder()
+
+w = Variable([1, 1])
+
+b = Variable(-5)
+
+z = add(matmul(w, x), b)
+
+a = Sigmoid(z)
+
+sess = Session()
+
+r = sess.run(operation=a, feed_dict={x: [8, 10]})
+print(r)
+r1 = r = sess.run(operation=a, feed_dict={x: [2, -10]})
+print(r1)
