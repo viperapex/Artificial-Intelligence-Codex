@@ -3,40 +3,8 @@ import matplotlib.pyplot as plt
 import tensorflow
 import numpy as np
 
-'''
-class SimpleClass():
-
-    def __init__(self, name):
-        print("hello "+name)
-
-    def yell(self):
-        print("yelling")
-
-
-x = SimpleClass()
-
-x.yell()
-
-
-class ExtendedClass(SimpleClass):
-
-    def __init__(self):
-
-        super().__init__('Jose')
-        print("EXTEND!")
-
-
-y = ExtendedClass()
-
-print(y)
-
-
-print(y.yell())
-'''
 
 # Operation
-
-
 class Operation():
 
     def __init__(self, input_nodes=[]):
