@@ -174,3 +174,12 @@ print("Completed successfully!")
 - Extracts numerical values from prediction dictionaries
 - Plots predictions as red line over scatter plot of original data
 - Includes legend and title for clear visualization
+
+
+### Key Concepts:
+- **Manual vs High-level API**: Compare custom gradient descent with pre-built estimators
+- **Batch Training**: Processes data in small batches for memory efficiency and better convergence
+- **Gradient Tape**: TensorFlow 2's mechanism for automatic differentiation
+- **Data Pipeline**: tf.data API provides efficient data loading and preprocessing
+- **Feature Columns**: Standardized way to describe model input features
+- **Model Evaluation**: Separate training and evaluation metrics for performance assessment
