@@ -1,12 +1,8 @@
-# TensorFlow 2 Regression Example
+## TensorFlow  Regression Implementation
 
-# Creating Data
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import tensorflow as tf
-from sklearn.model_selection import train_test_split  # Fixed import
+### Data Creation and Visualization
 
+```python
 # 1 Million Points
 x_data = np.linspace(0.0, 10.0, 1000000)
 noise = np.random.randn(len(x_data))
@@ -22,9 +18,20 @@ my_data = pd.concat([
 # Visualize sample of data
 my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
 plt.show()
+```
 
+**Explanation:**
+- Creates synthetic linear data with 1 million points for robust training
+- `np.linspace()` generates evenly spaced values between 0-10
+- Adds Gaussian noise using `np.random.randn()` to simulate real-world data variability
+- True relationship follows `y = 0.5x + 5` with added noise
+- Combines data into pandas DataFrame for easy manipulation
+- Visualizes 250 random samples using matplotlib scatter plot
 
-print("Manual TensorFlow 2 Implementation:")
+### Manual TensorFlow Implementation
+
+```python
+print("Manual TensorFlow Implementation:")
 
 # Initialize variables
 m = tf.Variable(0.5)
@@ -58,66 +65,15 @@ my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
 plt.plot(x_data, y_hat, 'r', linewidth=3)
 plt.title("Manual TensorFlow 2 Regression")
 plt.show()
+```
 
-# TensorFlow Estimator API
-print("\nTensorFlow Estimator API:")
+**Explanation:**
+- `tf.Variable()` creates trainable parameters with initial values (slope=0.5, intercept=1.0)
+- Stochastic Gradient Descent optimizer with learning rate 0.001
+- Mini-batch training: processes 8 samples at a time for 1000 iterations
+- `tf.GradientTape()` automatically tracks operations and computes gradients
+- Mean Squared Error loss calculated using `tf.square()` and `tf.reduce_sum()`
+- `apply_gradients()` updates variables using computed gradients
+- Extracts final parameter values using `.numpy()` method
+- Plots regression line (red) over sampled data points
 
-# Split data into train and test sets
-x_train, x_eval, y_train, y_eval = train_test_split(
-    x_data, y_true, test_size=0.3, random_state=101
-)
-
-print(
-    f"Training set size: {x_train.shape}, Evaluation set size: {x_eval.shape}")
-
-
-# Define feature columns and estimator
-feat_cols = [tf.feature_column.numeric_column('x', shape=[1])]
-estimator = tf.estimator.LinearRegressor(feature_columns=feat_cols)
-
-# Define input functions using modern tf.data API
-
-
-def train_input_fn():
-    return tf.data.Dataset.from_tensor_slices(
-        ({'x': x_train}, y_train)
-    ).shuffle(1000).batch(4).repeat()
-
-
-def eval_input_fn():
-    return tf.data.Dataset.from_tensor_slices(
-        ({'x': x_eval}, y_eval)
-    ).batch(4)
-
-
-def predict_input_fn():
-    return tf.data.Dataset.from_tensor_slices(
-        {'x': np.linspace(0, 10, 10)}
-    ).batch(1)
-
-
-# Train the model
-estimator.train(input_fn=train_input_fn, steps=1000)
-
-# Evaluate the model
-train_metrics = estimator.evaluate(input_fn=eval_input_fn, steps=1000)
-eval_metrics = estimator.evaluate(input_fn=eval_input_fn, steps=1000)
-
-print(f"Train metrics: {train_metrics}")
-print(f"Eval metrics: {eval_metrics}")
-
-# Make predictions
-predictions = list(estimator.predict(input_fn=predict_input_fn))
-pred_values = [pred['predictions'][0] for pred in predictions]
-
-print(f"Predictions: {pred_values}")
-
-# Plot estimator results
-my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
-plt.plot(np.linspace(0, 10, 10), pred_values,
-         'r', linewidth=3, label='Predictions')
-plt.title("TensorFlow Estimator Regression")
-plt.legend()
-plt.show()
-
-print("Completed successfully!")
