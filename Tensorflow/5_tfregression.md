@@ -76,4 +76,3 @@ plt.show()
 - `apply_gradients()` updates variables using computed gradients
 - Extracts final parameter values using `.numpy()` method
 - Plots regression line (red) over sampled data points
-
