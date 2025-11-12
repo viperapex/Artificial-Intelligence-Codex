@@ -104,3 +104,34 @@ print(f"Training set size: {x_train.shape}, Evaluation set size: {x_eval.shape}"
 - `random_state=101` ensures reproducible splits
 - Prints dataset sizes for verification
 
+### TensorFlow Estimator Setup
+
+```python
+# Define feature columns and estimator
+feat_cols = [tf.feature_column.numeric_column('x', shape=[1])]
+estimator = tf.estimator.LinearRegressor(feature_columns=feat_cols)
+
+# Define input functions using modern tf.data API
+def train_input_fn():
+    return tf.data.Dataset.from_tensor_slices(
+        ({'x': x_train}, y_train)
+    ).shuffle(1000).batch(4).repeat()
+
+def eval_input_fn():
+    return tf.data.Dataset.from_tensor_slices(
+        ({'x': x_eval}, y_eval)
+    ).batch(4)
+
+def predict_input_fn():
+    return tf.data.Dataset.from_tensor_slices(
+        {'x': np.linspace(0, 10, 10)}
+    ).batch(1)
+```
+
+**Explanation:**
+- `tf.feature_column.numeric_column` defines input data structure for the model
+- `LinearRegressor` provides pre-built linear regression implementation
+- `tf.data.Dataset` creates efficient data pipelines
+- Training function: shuffles data, uses batch size 4, repeats for multiple epochs
+- Evaluation function: uses same batch size without shuffling
+- Prediction function: generates predictions for 10 evenly spaced points
