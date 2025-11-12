@@ -76,3 +76,23 @@ plt.show()
 - `apply_gradients()` updates variables using computed gradients
 - Extracts final parameter values using `.numpy()` method
 - Plots regression line (red) over sampled data points
+
+
+### Data Splitting for Estimator API
+
+```python
+# TensorFlow Estimator API
+print("\nTensorFlow Estimator API:")
+
+# Split data into train and test sets
+x_train, x_eval, y_train, y_eval = train_test_split(
+    x_data, y_true, test_size=0.3, random_state=101
+)
+
+print(f"Training set size: {x_train.shape}, Evaluation set size: {x_eval.shape}")
+```
+
+**Explanation:**
+- Uses `train_test_split` from sklearn to split data (70% train, 30% test)
+- `random_state=101` ensures reproducible splits
+- Prints dataset sizes for verification
