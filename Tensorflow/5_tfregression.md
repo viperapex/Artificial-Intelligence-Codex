@@ -135,3 +135,42 @@ def predict_input_fn():
 - Training function: shuffles data, uses batch size 4, repeats for multiple epochs
 - Evaluation function: uses same batch size without shuffling
 - Prediction function: generates predictions for 10 evenly spaced points
+
+### Model Training and Evaluation
+
+```python
+# Train the model
+estimator.train(input_fn=train_input_fn, steps=1000)
+
+# Evaluate the model
+train_metrics = estimator.evaluate(input_fn=eval_input_fn, steps=1000)
+eval_metrics = estimator.evaluate(input_fn=eval_input_fn, steps=1000)
+
+print(f"Train metrics: {train_metrics}")
+print(f"Eval metrics: {eval_metrics}")
+
+# Make predictions
+predictions = list(estimator.predict(input_fn=predict_input_fn))
+pred_values = [pred['predictions'][0] for pred in predictions]
+
+print(f"Predictions: {pred_values}")
+
+# Plot estimator results
+my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
+plt.plot(np.linspace(0, 10, 10), pred_values,
+         'r', linewidth=3, label='Predictions')
+plt.title("TensorFlow Estimator Regression")
+plt.legend()
+plt.show()
+
+print("Completed successfully!")
+```
+
+**Explanation:**
+- `estimator.train()` fits model using specified input function and 1000 steps
+- `estimator.evaluate()` computes performance metrics on validation data
+- `estimator.predict()` generates predictions on new data
+- Predictions are returned as dictionaries containing prediction tensors
+- Extracts numerical values from prediction dictionaries
+- Plots predictions as red line over scatter plot of original data
+- Includes legend and title for clear visualization
