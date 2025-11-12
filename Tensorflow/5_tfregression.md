@@ -1,5 +1,12 @@
 ## TensorFlow  Regression Implementation
 
+# Importing neccesary libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from sklearn.model_selection import train_test_split  # Fixed import
+
 ### Data Creation and Visualization
 
 ```python
@@ -96,3 +103,4 @@ print(f"Training set size: {x_train.shape}, Evaluation set size: {x_eval.shape}"
 - Uses `train_test_split` from sklearn to split data (70% train, 30% test)
 - `random_state=101` ensures reproducible splits
 - Prints dataset sizes for verification
+
